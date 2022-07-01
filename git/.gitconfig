@@ -1,0 +1,8 @@
+[user]
+        email = rmezar@gmail.com
+        name = Ruben Meza
+
+[includeIf "gitdir:~/code/work/"]
+    path = ~/code/work/.gitconfig
+[core]
+        editor = nvim
