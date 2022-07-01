@@ -5,10 +5,11 @@ export GOPATH=$HOME/go
 export GIT_EDITOR=$VIM
 export DOTFILES=$HOME/.dotfiles
 
-addToPathFront $HOME/.local/.npm-global/bin
-addToPathFront $HOME/.local/n/bin/
-addToPathFront $HOME/.local/go/bin
-addToPathFront $HOME/go/bin
+# PATH=$HOME/.local/.npm-global/bin:$PATH
+# PATH=$HOME/.local/n/bin/:$PATH
+# PATH=$HOME/.local/go/bin:$PATH
+PATH=$HOME/go/bin:$PATH
+PATH=$HOME/.cargo/bin:$PATH
 
 # Where should I put you?
 bindkey -s ^f "tmux-sessionizer\n"
