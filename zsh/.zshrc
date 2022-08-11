@@ -110,6 +110,8 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+PATH="/home/ruben/.yarn/bin:$PATH"
+
 # X2 bin path
 PATH=~/.x2bin:$PATH
 # PATH="/home/rubenmeza/.yarn/bin:$PATH"
@@ -118,4 +120,9 @@ PATH=~/.x2bin:$PATH
 # PATH="$(yarn global bin):$PATH"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
-PATH="/home/ruben/.yarn/bin:$PATH"
+
+# Added by GDK bootstrap
+# source /home/ruben/.asdf/asdf.sh
+
+
+
