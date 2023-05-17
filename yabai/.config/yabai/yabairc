@@ -44,6 +44,8 @@ yabai -m rule --add title='Preferences$' manage=off
 # float settings windows
 yabai -m rule --add title='Settings$' manage=off
 
+yabai -m config external_bar main:0:6
+
 yabai -m signal --add event=space_changed \
 	sketchybar --update
 
