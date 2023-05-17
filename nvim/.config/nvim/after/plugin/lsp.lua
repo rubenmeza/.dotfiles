@@ -7,6 +7,8 @@ lsp.ensure_installed({
   'eslint',
   'lua_ls',
   'rust_analyzer',
+  'gopls',
+  'golangci_lint_ls',
 })
 
 -- Fix Undefined global 'vim'
@@ -18,6 +20,28 @@ lsp.configure('lua_ls', {
             }
         }
     }
+})
+
+lsp.configure('gopls', {
+  settings = {
+    gopls = {
+      gofumpt = true,
+    },
+  },
+  flags = {
+    debounce_text_changes = 150,
+  },
+})
+
+lsp.configure('golangci_lint_ls', {
+  settings = {
+    gopls = {
+      gofumpt = true,
+    },
+  },
+  flags = {
+    debounce_text_changes = 150,
+  },
 })
 
 local cmp = require('cmp')
@@ -52,9 +76,9 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+  vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
+  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
 
