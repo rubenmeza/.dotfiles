@@ -13,19 +13,3 @@ PATH=$HOME/go/bin:$PATH
 
 # Where should I put you?
 bindkey -s ^f "tmux-sessionizer\n"
-
-catr() {
-    tail -n "+$1" $3 | head -n "$(($2 - $1 + 1))"
-}
-
-validateYaml() {
-    python -c 'import yaml,sys;yaml.safe_load(sys.stdin)' < $1
-}
-
-goWork() {
-    cp ~/.npm_work_rc ~/.npmrc
-}
-
-goPersonal() {
-    cp ~/.npm_personal_rc ~/.npmrc
-}
