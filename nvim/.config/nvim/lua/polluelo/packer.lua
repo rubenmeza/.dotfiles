@@ -75,5 +75,7 @@ return require('packer').startup(function(use)
       'lewis6991/gitsigns.nvim',
     }
 
-    use('fatih/vim-go')
+    -- use('fatih/vim-go')
+
+    -- use('folke/flash.nvim')
 end)

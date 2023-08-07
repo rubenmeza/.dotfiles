@@ -26,6 +26,11 @@ lsp.configure('gopls', {
   settings = {
     gopls = {
       gofumpt = true,
+      env = {
+        -- some go test files include this as a comment at the begining of the file //go:build integration, add that to lsp work
+        -- https://github.com/golang/go/issues/29202#issuecomment-1233042513
+        GOFLAGS = "-tags=integration",
+      }
     },
   },
   flags = {
