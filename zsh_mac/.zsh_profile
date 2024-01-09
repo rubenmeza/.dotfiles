@@ -13,3 +13,8 @@ PATH=$HOME/go/bin:$PATH
 
 # Where should I put you?
 bindkey -s ^f "tmux-sessionizer\n"
+
+export MTLS_CLIENT_CERT_FILE_PATH=/Users/rubenmeza/.ssh/staff.crt
+export MTLS_CLIENT_KEY_FILE_PATH=/Users/rubenmeza/.ssh/staff.key
+
+export DIGITALOCEAN_TOKEN=dop_v1_5187e6afee9e6494c50f0186d21f4ed60e04f702e55975e8f6754dadc8c9478d
