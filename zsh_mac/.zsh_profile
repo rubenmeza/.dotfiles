@@ -18,3 +18,13 @@ export MTLS_CLIENT_CERT_FILE_PATH=/Users/rubenmeza/.ssh/staff.crt
 export MTLS_CLIENT_KEY_FILE_PATH=/Users/rubenmeza/.ssh/staff.key
 
 export DIGITALOCEAN_TOKEN=dop_v1_5187e6afee9e6494c50f0186d21f4ed60e04f702e55975e8f6754dadc8c9478d
+
+export TEST_DB_USER=root
+export TEST_DB_PASSWORD=sekret
+export TEST_DB_ADDR=localdev.internal.digitalocean.com:3306
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+--color=fg:#c0caf5,bg:#1a1b26,hl:#ff9e64 \
+--color=fg+:#c0caf5,bg+:#292e42,hl+:#ff9e64 \
+--color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+--color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"

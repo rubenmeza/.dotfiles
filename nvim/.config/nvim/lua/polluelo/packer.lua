@@ -28,7 +28,8 @@ return require('packer').startup(function(use)
 	    requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    use('EdenEast/nightfox.nvim')
+    use('folke/tokyonight.nvim')
+    -- use('EdenEast/nightfox.nvim')
 
     -- use({
     --   'rose-pine/neovim',
@@ -62,7 +63,7 @@ return require('packer').startup(function(use)
 
     use('mbbill/undotree')
 
-    use('tpope/vim-fugitive')
+    -- use('tpope/vim-fugitive')
 
     use {
       'VonHeikemen/lsp-zero.nvim',
@@ -103,6 +104,16 @@ return require('packer').startup(function(use)
     }
 
     use('fatih/vim-go')
+
+    -- use('github/copilot.vim')
+    use {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup({})
+      end,
+    }
 
     -- use('folke/flash.nvim')
 end)
