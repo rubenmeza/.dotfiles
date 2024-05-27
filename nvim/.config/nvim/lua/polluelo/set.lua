@@ -1,5 +1,5 @@
 vim.opt.nu = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -20,7 +20,8 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 -- vim.opt.background = "dark"
-vim.cmd [[colorscheme nightfox]]
+-- vim.cmd [[colorscheme nightfox]]
+vim.cmd[[colorscheme tokyonight]]
 
 vim.opt.scrolloff = 8
 vim.opt.isfname:append("@-@")
