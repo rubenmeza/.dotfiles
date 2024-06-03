@@ -96,7 +96,7 @@ return require('packer').startup(function(use)
 
     use {
       'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
     use {
@@ -106,14 +106,8 @@ return require('packer').startup(function(use)
     use('fatih/vim-go')
 
     -- use('github/copilot.vim')
-    use {
-      "zbirenbaum/copilot.lua",
-      cmd = "Copilot",
-      event = "InsertEnter",
-      config = function()
-        require("copilot").setup({})
-      end,
-    }
+    use('zbirenbaum/copilot.lua')
 
+    use('AndreM222/copilot-lualine')
     -- use('folke/flash.nvim')
 end)
