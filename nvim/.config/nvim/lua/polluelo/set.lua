@@ -21,7 +21,7 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 -- vim.opt.background = "dark"
 -- vim.cmd [[colorscheme nightfox]]
-vim.cmd[[colorscheme tokyonight]]
+-- vim.cmd[[colorscheme tokyonight]]
 
 vim.opt.scrolloff = 8
 vim.opt.isfname:append("@-@")
