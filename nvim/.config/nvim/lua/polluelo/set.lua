@@ -29,3 +29,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
+
+vim.lsp.set_log_level(vim.log.levels.INFO)
+
+vim.lsp.inlay_hint.enable(false)

@@ -1,6 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
+    "stevearc/conform.nvim",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
@@ -14,6 +15,10 @@ return {
   },
 
   config = function()
+    require("conform").setup({
+      formatters_by_ft = {
+      }
+    })
     local cmp = require('cmp')
     local cmp_lsp = require("cmp_nvim_lsp")
     local capabilities = vim.tbl_deep_extend(
@@ -26,36 +31,14 @@ return {
     require("mason").setup()
     require("mason-lspconfig").setup({
       ensure_installed = {
-        'gopls',
-        'golangci_lint_ls',
-        'tsserver',
-        'eslint',
-        'lua_ls',
-        'rust_analyzer',
+        "lua_ls",
+        "rust_analyzer",
+        "gopls",
       },
       handlers = {
         function(server_name) -- default handler (optional)
           require("lspconfig")[server_name].setup {
             capabilities = capabilities
-          }
-        end,
-        ["gopls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.gopls.setup {
-            capabilities = capabilities,
-            settings = {
-              gopls = {
-                -- gofumpt = true,
-                env = {
-                  -- some go test files include this as a comment at the begining of the file //go:build integration, add that to lsp work
-                  -- https://github.com/golang/go/issues/29202#issuecomment-1233042513
-                  GOFLAGS = "-tags=integration",
-                }
-              },
-            },
-            flags = {
-              debounce_text_changes = 150,
-            },
           }
         end,
         ["lua_ls"] = function()
@@ -74,6 +57,14 @@ return {
         end,
       }
     })
+
+    require('go').setup{
+      lsp_cfg = false
+      -- other setups...
+    }
+    local cfg = require'go.lsp'.config() -- config() return the go.nvim gopls setup
+    cfg["buildFlags"] = { '-tags', 'integration' }
+    require('lspconfig').gopls.setup(cfg)
 
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 

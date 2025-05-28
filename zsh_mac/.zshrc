@@ -102,8 +102,6 @@ source ~/.zsh_profile
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# export GOPATH=$HOME/go
-# export PATH=$PATH:$GOPATH/bin
 export PATH="/opt/homebrew/opt/mysql-client@5.7/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
