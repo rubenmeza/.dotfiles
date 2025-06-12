@@ -25,14 +25,26 @@ autocmd('LspAttach', {
     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+
+    -- local client = vim.lsp.get_client_by_id(e.data.client_id)
+    -- if client.name == "gopls" then
+    --   vim.lsp.inlay_hint.enable(false)
+    -- end
   end
 })
 
-local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-   require('go.format').goimports()
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
   end,
-  group = format_sync_grp,
 })
+
+-- local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*.go",
+--   callback = function()
+--    require('go.format').goimports()
+--   end,
+--   group = format_sync_grp,
+-- })

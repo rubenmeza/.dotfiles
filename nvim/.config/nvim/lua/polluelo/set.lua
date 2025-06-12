@@ -32,4 +32,3 @@ vim.g.mapleader = " "
 
 vim.lsp.set_log_level(vim.log.levels.INFO)
 
-vim.lsp.inlay_hint.enable(false)

@@ -47,10 +47,15 @@ return {
             capabilities = capabilities,
             settings = {
               Lua = {
-                runtime = { version = "Lua 5.1" },
-                diagnostics = {
-                  globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                }
+                format = {
+                  enable = true,
+                  -- Put format options here
+                  -- NOTE: the value should be STRING!!
+                  defaultConfig = {
+                    indent_style = "space",
+                    indent_size = "2",
+                  }
+                },
               }
             }
           }
@@ -58,13 +63,22 @@ return {
       }
     })
 
-    require('go').setup{
-      lsp_cfg = false
-      -- other setups...
+    local lspconfig = require("lspconfig")
+    lspconfig.gopls.setup {
+      settings = {
+        gopls = {
+          buildFlags = { "-tags=integration" }
+        }
+      }
     }
-    local cfg = require'go.lsp'.config() -- config() return the go.nvim gopls setup
-    cfg["buildFlags"] = { '-tags', 'integration' }
-    require('lspconfig').gopls.setup(cfg)
+
+    -- require('go').setup{
+    --   lsp_cfg = false
+    --   -- other setups...
+    -- }
+    -- local cfg = require'go.lsp'.config() -- config() return the go.nvim gopls setup
+    -- cfg["buildFlags"] = { '-tags', 'integration' }
+    -- require('lspconfig').gopls.setup(cfg)
 
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
