@@ -30,41 +30,17 @@ return {
     require("fidget").setup({})
     require("mason").setup()
     require("mason-lspconfig").setup({
+      automatic_enable = false,
       ensure_installed = {
         "lua_ls",
         "rust_analyzer",
         "gopls",
       },
-      handlers = {
-        function(server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup {
-            capabilities = capabilities
-          }
-        end,
-        ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.lua_ls.setup {
-            capabilities = capabilities,
-            settings = {
-              Lua = {
-                format = {
-                  enable = true,
-                  -- Put format options here
-                  -- NOTE: the value should be STRING!!
-                  defaultConfig = {
-                    indent_style = "space",
-                    indent_size = "2",
-                  }
-                },
-              }
-            }
-          }
-        end,
-      }
     })
 
     local lspconfig = require("lspconfig")
     lspconfig.gopls.setup {
+      capabilities = capabilities,
       settings = {
         gopls = {
           buildFlags = { "-tags=integration" }
