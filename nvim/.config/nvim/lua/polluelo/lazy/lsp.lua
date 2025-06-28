@@ -39,12 +39,36 @@ return {
     })
 
     local lspconfig = require("lspconfig")
+
     lspconfig.gopls.setup {
       capabilities = capabilities,
       settings = {
         gopls = {
           buildFlags = { "-tags=integration" }
         }
+      }
+    }
+
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          format = {
+            enable = true,
+            defaultConfig = {
+              indent_style = "space",
+              indent_size = "2",
+            }
+          },
+
+          diagnostics = {
+            globals = {
+              'vim',
+              'require',
+            }
+          }
+        }
+
       }
     }
 
