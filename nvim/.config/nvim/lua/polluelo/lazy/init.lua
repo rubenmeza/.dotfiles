@@ -6,7 +6,4 @@ return {
   {
     'tpope/vim-commentary'
   },
-  {
-    'AndreM222/copilot-lualine',
-  },
 }
