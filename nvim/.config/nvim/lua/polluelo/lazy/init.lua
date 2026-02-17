@@ -6,4 +6,7 @@ return {
   {
     'tpope/vim-commentary'
   },
+  {
+    'echasnovski/mini.nvim', version = false
+  },
 }
