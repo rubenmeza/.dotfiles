@@ -20,6 +20,7 @@ PACMAN_PKGS=(
     npm
     go
     rustup
+    zsh
 )
 
 echo "==> Installing pacman packages..."
@@ -31,6 +32,18 @@ AUR_PKGS=(
 
 echo "==> Installing AUR packages..."
 yay -S --needed --noconfirm "${AUR_PKGS[@]}"
+
+# ── Install oh-my-zsh ────────────────────────────────────────────
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "==> Installing oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
+# ── Change default shell to zsh ──────────────────────────────────
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo "==> Changing default shell to zsh..."
+    chsh -s "$(which zsh)"
+fi
 
 # ── Remove default omarchy lazyvim config ─────────────────────────
 if [ -d "$HOME/.config/nvim" ] && [ ! -L "$HOME/.config/nvim/init.lua" ]; then
@@ -44,5 +57,11 @@ stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt nvim
 
 echo "==> Stowing omarchy config..."
 stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt omarchy
+
+echo "==> Stowing ghostty config..."
+stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt ghostty
+
+echo "==> Stowing zsh config..."
+stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt zsh
 
 echo "==> Done! Restart your terminal or reload your config."
