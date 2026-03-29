@@ -15,11 +15,13 @@ PACMAN_PKGS=(
     unzip
     ripgrep
     fd
+    fzf
+    tmux
     tree-sitter
     tree-sitter-cli
     npm
     go
-    rustup
+    rust
     zsh
 )
 
@@ -45,23 +47,49 @@ if [ "$SHELL" != "$(which zsh)" ]; then
     chsh -s "$(which zsh)"
 fi
 
-# ── Remove default omarchy lazyvim config ─────────────────────────
-if [ -d "$HOME/.config/nvim" ] && [ ! -L "$HOME/.config/nvim/init.lua" ]; then
-    echo "==> Removing default nvim config..."
-    rm -rf "$HOME/.config/nvim"
+# ── Remove default configs that conflict with stow ───────────────
+for dir in nvim ghostty tmux; do
+    target="$HOME/.config/$dir"
+    if [ -d "$target" ] && [ ! -L "$target" ]; then
+        echo "==> Removing default $dir config..."
+        rm -rf "$target"
+    fi
+done
+
+# Remove oh-my-zsh generated .zshrc so stow can replace it
+if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
+    echo "==> Removing oh-my-zsh default .zshrc..."
+    rm -f "$HOME/.zshrc"
 fi
+
+# Remove existing claude config files (non-symlinks) so stow can manage them
+for file in "$HOME/.claude/settings.json" "$HOME/.claude/skills/deploy-do/SKILL.md"; do
+    if [ -f "$file" ] && [ ! -L "$file" ]; then
+        echo "==> Removing existing $file..."
+        rm -f "$file"
+    fi
+done
 
 # ── Stow dotfiles ────────────────────────────────────────────────
 echo "==> Stowing nvim config..."
-stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt nvim
+stow --dir="$DOTFILES_DIR" --target="$HOME" nvim
 
 echo "==> Stowing omarchy config..."
-stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt omarchy
+stow --dir="$DOTFILES_DIR" --target="$HOME" omarchy
 
 echo "==> Stowing ghostty config..."
-stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt ghostty
+stow --dir="$DOTFILES_DIR" --target="$HOME" ghostty
 
 echo "==> Stowing zsh config..."
-stow --dir="$DOTFILES_DIR" --target="$HOME" --adopt zsh
+stow --dir="$DOTFILES_DIR" --target="$HOME" zsh
+
+echo "==> Stowing tmux config..."
+stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
+
+echo "==> Stowing bin scripts..."
+stow --dir="$DOTFILES_DIR" --target="$HOME" bin
+
+echo "==> Stowing claude config..."
+stow --dir="$DOTFILES_DIR" --target="$HOME" claude
 
 echo "==> Done! Restart your terminal or reload your config."
