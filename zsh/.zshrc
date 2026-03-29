@@ -16,3 +16,6 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# Local secrets (API tokens, etc.) — not tracked in git
+[ -f ~/.zsh_secrets ] && source ~/.zsh_secrets

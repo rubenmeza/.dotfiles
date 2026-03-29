@@ -13,6 +13,7 @@ PACMAN_PKGS=(
     git
     curl
     unzip
+    wget
     ripgrep
     fd
     fzf
@@ -20,9 +21,17 @@ PACMAN_PKGS=(
     tree-sitter
     tree-sitter-cli
     npm
+    deno
     go
     rust
     zsh
+    stylua
+    lua-jsregexp
+    docker
+    docker-buildx
+    docker-compose
+    claude-code
+    godot
 )
 
 echo "==> Installing pacman packages..."
@@ -30,7 +39,23 @@ sudo pacman -S --needed --noconfirm "${PACMAN_PKGS[@]}"
 
 AUR_PKGS=(
     brave-bin
+    google-chrome
 )
+
+# ── Remove bloatware ─────────────────────────────────────────────
+REMOVE_PKGS=(
+    alacritty
+    libreoffice-fresh
+    1password-cli
+    1password-beta
+)
+
+echo "==> Removing unwanted packages..."
+for pkg in "${REMOVE_PKGS[@]}"; do
+    if pacman -Qi "$pkg" &>/dev/null; then
+        sudo pacman -Rns --noconfirm "$pkg"
+    fi
+done
 
 echo "==> Installing AUR packages..."
 yay -S --needed --noconfirm "${AUR_PKGS[@]}"
