@@ -4,7 +4,7 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "==> Updating system packages..."
-sudo pacman -Syu --noconfirm
+# sudo pacman -Syu --noconfirm
 
 # ── Install packages ──────────────────────────────────────────────
 PACMAN_PKGS=(
@@ -26,6 +26,7 @@ PACMAN_PKGS=(
     rust
     stylua
     lua-jsregexp
+    luarocks
     docker
     docker-buildx
     docker-compose
@@ -43,7 +44,6 @@ AUR_PKGS=(
 
 # ── Remove bloatware ─────────────────────────────────────────────
 REMOVE_PKGS=(
-    alacritty
     libreoffice-fresh
     1password-cli
     1password-beta
@@ -59,30 +59,43 @@ done
 echo "==> Installing AUR packages..."
 yay -S --needed --noconfirm "${AUR_PKGS[@]}"
 
-# ── Remove default configs that conflict with stow ───────────────
-for dir in nvim ghostty tmux; do
-    target="$HOME/.config/$dir"
-    if [ -d "$target" ] && [ ! -L "$target" ]; then
-        echo "==> Removing default $dir config..."
+# ── Backup and remove configs that conflict with stow ────────────
+BACKUP_DIR="$DOTFILES_DIR/.backups/$(date +%Y%m%d-%H%M%S)"
+mkdir -p "$BACKUP_DIR"
+
+backup_and_remove() {
+    local target="$1"
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+        local rel="${target#$HOME/}"
+        mkdir -p "$BACKUP_DIR/$(dirname "$rel")"
+        echo "==> Backing up $target..."
+        cp -a "$target" "$BACKUP_DIR/$rel"
         rm -rf "$target"
     fi
+}
+
+# Full directory configs (stow owns the entire dir)
+for dir in nvim tmux; do
+    backup_and_remove "$HOME/.config/$dir"
 done
 
-# Remove default bash files so stow can replace them
+# Omarchy owns ~/.config/hypr/ and ~/.config/waybar/ as real directories,
+# so we only remove the specific files that stow will manage (not the whole dirs).
+for file in hypr/bindings.conf hypr/input.conf waybar/config.jsonc; do
+    backup_and_remove "$HOME/.config/$file"
+done
+
+# Bash dotfiles
 for file in "$HOME/.bashrc" "$HOME/.bash_profile"; do
-    if [ -f "$file" ] && [ ! -L "$file" ]; then
-        echo "==> Removing existing $file..."
-        rm -f "$file"
-    fi
+    backup_and_remove "$file"
 done
 
-# Remove existing claude config files (non-symlinks) so stow can manage them
+# Claude config files
 for file in "$HOME/.claude/settings.json" "$HOME/.claude/skills/deploy-do/SKILL.md"; do
-    if [ -f "$file" ] && [ ! -L "$file" ]; then
-        echo "==> Removing existing $file..."
-        rm -f "$file"
-    fi
+    backup_and_remove "$file"
 done
+
+echo "==> Backups saved to $BACKUP_DIR"
 
 # ── Stow dotfiles ────────────────────────────────────────────────
 echo "==> Stowing nvim config..."
@@ -90,9 +103,6 @@ stow --dir="$DOTFILES_DIR" --target="$HOME" nvim
 
 echo "==> Stowing omarchy config..."
 stow --dir="$DOTFILES_DIR" --target="$HOME" omarchy
-
-echo "==> Stowing ghostty config..."
-stow --dir="$DOTFILES_DIR" --target="$HOME" ghostty
 
 echo "==> Stowing bash config..."
 stow --dir="$DOTFILES_DIR" --target="$HOME" bash
