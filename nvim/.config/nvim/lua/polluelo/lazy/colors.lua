@@ -18,7 +18,8 @@ return {
         floats = "dark", -- style for floating windows
       },
     },
-    config = function()
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
       vim.cmd.colorscheme('tokyonight')
     end
   }
