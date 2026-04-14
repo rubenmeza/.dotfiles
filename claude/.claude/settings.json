@@ -1,3 +1,6 @@
 {
-  "model": "opus"
+  "model": "opus",
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true
+  }
 }
