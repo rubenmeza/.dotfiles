@@ -40,6 +40,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+local godot_socket = "/tmp/godot.pipe"
+if vim.uv.fs_stat(godot_socket) == nil then
+  pcall(vim.fn.serverstart, godot_socket)
+end
+
 -- local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 --   pattern = "*.go",

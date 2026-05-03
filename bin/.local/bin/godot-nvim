@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+SOCK=/tmp/godot.pipe
+file="$1"
+line="${2:-1}"
+col="${3:-1}"
+
+if [ -S "$SOCK" ]; then
+  nvim --server "$SOCK" --remote-send "<C-\\><C-n>:edit ${file}<CR>:call cursor(${line}, ${col})<CR>"
+else
+  rm -f "$SOCK"
+  alacritty -e nvim --listen "$SOCK" "${file}" "+call cursor(${line}, ${col})" &
+fi
