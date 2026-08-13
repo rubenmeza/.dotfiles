@@ -2,7 +2,16 @@
 [[ $- != *i* ]] && return
 
 # Omarchy defaults
-source ~/.local/share/omarchy/default/bash/rc
+# /etc/omarchy.conf is written by omarchy-dev-link. When absent, force the
+# package default instead of preserving a stale inherited dev-link value before
+# we decide which rc file to source.
+if [[ -f /etc/omarchy.conf ]]; then
+  source /etc/omarchy.conf
+  export OMARCHY_PATH="${OMARCHY_PATH:-/usr/share/omarchy}"
+else
+  export OMARCHY_PATH=/usr/share/omarchy
+fi
+source "$OMARCHY_PATH/default/bash/rc"
 
 # Env
 export XDG_CONFIG_HOME=$HOME/.config
@@ -16,11 +25,6 @@ PATH=$HOME/go/bin:$PATH
 
 # Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-
-# NVM
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Tmux sessionizer
 bind -x '"\C-f": tmux-sessionizer' 2>/dev/null
@@ -36,3 +40,6 @@ validateYaml() {
 
 # Local secrets (API tokens, etc.) — not tracked in git
 [ -f ~/.bash_secrets ] && source ~/.bash_secrets
+
+export NODE_OPTIONS=--max-old-space-size=24576
+export PLAYWRIGHT_SKIP_DOWNLOAD=true
