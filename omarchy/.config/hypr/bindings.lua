@@ -25,7 +25,8 @@ o.bind("ALT + RETURN", "Terminal", { omarchy = "terminal" })
 hl.unbind("SUPER + W")
 o.bind("ALT + Q", "Close window", hl.dsp.window.close())
 
-hl.unbind("SUPER + SPACE")
+-- Apps menu also on ALT + D (SUPER + ALT + SPACE stays bound too).
+-- SUPER + SPACE is left alone so the root Omarchy menu keeps working.
 o.bind("ALT + D", "Launch apps", "omarchy-menu toggle apps")
 
 o.bind("ALT + H", "Move window focus left", hl.dsp.focus({ direction = "l" }))
