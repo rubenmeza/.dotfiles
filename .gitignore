@@ -6,3 +6,4 @@ bin/.local/bin/ghui
 bin/.local/bin/opencode
 bin/.local/bin/pi
 bin/.local/bin/playwright-cli
+.backups/

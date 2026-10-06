@@ -75,13 +75,13 @@ backup_and_remove() {
 }
 
 # Full directory configs (stow owns the entire dir)
-for dir in nvim tmux; do
+for dir in nvim tmux ghostty; do
     backup_and_remove "$HOME/.config/$dir"
 done
 
-# Omarchy owns ~/.config/hypr/ and ~/.config/waybar/ as real directories,
+# Omarchy owns ~/.config/hypr/ as a real directory,
 # so we only remove the specific files that stow will manage (not the whole dirs).
-for file in hypr/bindings.conf hypr/input.conf waybar/config.jsonc; do
+for file in hypr/bindings.lua hypr/input.lua; do
     backup_and_remove "$HOME/.config/$file"
 done
 
@@ -115,6 +115,9 @@ stow --dir="$DOTFILES_DIR" --target="$HOME" bash
 
 echo "==> Stowing tmux config..."
 stow --dir="$DOTFILES_DIR" --target="$HOME" tmux
+
+echo "==> Stowing ghostty config..."
+stow --dir="$DOTFILES_DIR" --target="$HOME" ghostty
 
 echo "==> Stowing bin scripts..."
 stow --dir="$DOTFILES_DIR" --target="$HOME" bin
