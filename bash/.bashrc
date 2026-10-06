@@ -17,7 +17,7 @@ source "$OMARCHY_PATH/default/bash/rc"
 export XDG_CONFIG_HOME=$HOME/.config
 export GOPATH=$HOME/go
 export GIT_EDITOR=nvim
-export DOTFILES=$HOME/.dotfiles
+export DOTFILES=$HOME/Dev/.dotfiles
 
 PATH=$PATH:$HOME/.local/bin  # after mise shims: Omarchy mise wrappers loop otherwise (omacom/omarchy#7234)
 PATH=$HOME/.cargo/bin:$PATH
