@@ -91,7 +91,13 @@ for file in "$HOME/.bashrc" "$HOME/.bash_profile"; do
 done
 
 # Claude config files
-for file in "$HOME/.claude/settings.json" "$HOME/.claude/skills/deploy-do/SKILL.md"; do
+for file in "$HOME/.claude/settings.json" "$HOME/.claude/CLAUDE.md" "$HOME/.claude/skills/deploy-do/SKILL.md"; do
+    backup_and_remove "$file"
+done
+
+# Shared agent rules (~/.agents/AGENTS.md) and the Codex entry point to them.
+# ~/.agents/skills stays a real directory owned by the skills installer.
+for file in "$HOME/.agents/AGENTS.md" "$HOME/.codex/AGENTS.md"; do
     backup_and_remove "$file"
 done
 
@@ -115,5 +121,9 @@ stow --dir="$DOTFILES_DIR" --target="$HOME" bin
 
 echo "==> Stowing claude config..."
 stow --dir="$DOTFILES_DIR" --target="$HOME" claude
+
+echo "==> Stowing shared agent rules (Claude, Codex)..."
+mkdir -p "$HOME/.agents" "$HOME/.codex"
+stow --dir="$DOTFILES_DIR" --target="$HOME" agents codex
 
 echo "==> Done! Restart your terminal or reload your config."

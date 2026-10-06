@@ -1,5 +1,9 @@
 {
   "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"/home/pollo/.claude/plugins/cache/caveman/caveman/84cc3c14fa1e/hooks/caveman-statusline.sh\""
+  },
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
     "caveman@caveman": true
@@ -12,5 +16,12 @@
       }
     }
   },
-  "effortLevel": "xhigh"
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true
 }

@@ -19,7 +19,7 @@ export GOPATH=$HOME/go
 export GIT_EDITOR=nvim
 export DOTFILES=$HOME/.dotfiles
 
-PATH=$HOME/.local/bin:$PATH
+PATH=$PATH:$HOME/.local/bin  # after mise shims: Omarchy mise wrappers loop otherwise (omacom/omarchy#7234)
 PATH=$HOME/.cargo/bin:$PATH
 PATH=$HOME/go/bin:$PATH
 
