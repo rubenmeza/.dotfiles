@@ -54,7 +54,7 @@ stow -D --target="$HOME" nvim          # remove the symlinks
 |---|---|---|
 | `agents` | `~/.agents/AGENTS.md` | Shared global rules for every coding agent (Claude Code, Codex, Cursor). Single source of truth. |
 | `claude` | `~/.claude/` | Claude Code `CLAUDE.md` (imports the shared rules), `settings.json` (model, plugins, attribution) and the `deploy-do` skill for DigitalOcean App Platform deploys |
-| `codex` | `~/.codex/AGENTS.md` | Codex entry point to the shared rules |
+| `codex` | `~/.codex/AGENTS.md`, `~/.codex/hooks.json` | Codex entry point to the shared rules; hooks for `moshi-hook` and a SessionStart hook that turns on caveman mode via the Claude caveman plugin's `codex-sessionstart.js` |
 
 ### Shell, git & ssh
 

@@ -1,0 +1,55 @@
+{
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "'/home/pollo/.local/bin/moshi-hook' codex-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "'/home/pollo/.local/bin/moshi-hook' codex-hook",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(ls -d \"$HOME\"/.claude/plugins/cache/caveman/caveman/*/ | sort -V | tail -1).codex/codex-sessionstart.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "'/home/pollo/.local/bin/moshi-hook' codex-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "'/home/pollo/.local/bin/moshi-hook' codex-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
+}

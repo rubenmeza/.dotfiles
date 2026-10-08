@@ -95,9 +95,9 @@ for file in "$HOME/.claude/settings.json" "$HOME/.claude/CLAUDE.md" "$HOME/.clau
     backup_and_remove "$file"
 done
 
-# Shared agent rules (~/.agents/AGENTS.md) and the Codex entry point to them.
-# ~/.agents/skills stays a real directory owned by the skills installer.
-for file in "$HOME/.agents/AGENTS.md" "$HOME/.codex/AGENTS.md"; do
+# Shared agent rules (~/.agents/AGENTS.md), the Codex entry point to them and
+# Codex hooks. ~/.agents/skills stays a real directory owned by the skills installer.
+for file in "$HOME/.agents/AGENTS.md" "$HOME/.codex/AGENTS.md" "$HOME/.codex/hooks.json"; do
     backup_and_remove "$file"
 done
 
