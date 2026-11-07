@@ -43,3 +43,12 @@ o.bind("SUPER + SHIFT + T", "Activity", { tui = "btop" })
 -- Typora instead of Omawrite.
 hl.unbind("SUPER + SHIFT + W")
 o.bind("SUPER + SHIFT + W", "Typora", { launch = "typora --enable-wayland-ime" })
+
+-- Dictation keys from before Alt + Space and Right Alt became the defaults.
+-- Remove these lines to give the keys back to applications.
+if o.dictation_installed and o.dictation_installed() then
+  -- Right Alt push-to-talk fires on ALT + <n> workspace switches and pauses media.
+  hl.unbind("ALT + Alt_R")
+  o.bind("SUPER + CTRL + X", "Toggle dictation", "omarchy-dictation toggle")
+  o.bind_hold("F9", "Start dictation (push-to-talk)", "omarchy-dictation start", "Stop dictation (push-to-talk)", "omarchy-dictation stop")
+end
