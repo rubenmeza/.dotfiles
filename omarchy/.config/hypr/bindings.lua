@@ -10,12 +10,9 @@ for workspace = 1, 10 do
   hl.unbind("SUPER + " .. key)
   hl.unbind("SUPER + SHIFT + " .. key)
 
-  o.bind("ALT + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
-  o.bind(
-    "ALT + SHIFT + " .. key,
-    "Move window to workspace " .. workspace,
-    hl.dsp.window.move({ workspace = tostring(workspace) })
-  )
+  -- o.workspaces maps n to the focused monitor's own block (Omarchy 4.5 per-monitor workspaces).
+  o.bind("ALT + " .. key, "Switch to workspace " .. workspace, o.workspaces.focus(workspace))
+  o.bind("ALT + SHIFT + " .. key, "Move window to workspace " .. workspace, o.workspaces.move_window(workspace))
 end
 
 -- Window management moves from SUPER to ALT ----------------------------------
