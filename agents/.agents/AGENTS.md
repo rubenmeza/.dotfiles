@@ -38,7 +38,14 @@ either gets one question before any branch.
 without asking: fetch `origin/main`, rebase onto it, re-check that any new
 migration number is still free, push the branch, and open the PR with its body
 written via the `pr` skill. The repo's own branch, commit and attribution rules
-still apply. A human reviews and merges.
+still apply. A human reviews and merges, unless the run is an autopilot worker
+(see below).
+
+**Autopilot workers** are threads launched by the autopilot orchestrator; their
+prompt says so. After opening the PR, a worker watches it, fixes failing CI and
+merge conflicts, and squash-merges its own PR once every check on the head
+commit has passed and nobody has requested changes. It never merges anyone
+else's PR. Repo rules that forbid agent merges carve out the same exception.
 
 **When the user says a PR merged**: switch to the default branch and pull,
 delete the merged branch and its worktree, then propose the next unblocked,
